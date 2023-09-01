@@ -4,7 +4,7 @@ const gameOverSong = new Audio();
 const moveSound = new Audio();
 const musicSound = new Audio();
 let lastPaintTime=0;
-let speed=10;
+let speed=5;
 let snakeArr =[
     {x:13,y:16}
 ]
@@ -43,13 +43,20 @@ const gameEngine = () => {
         alert("Game is over, Press any key to play agian!");
         snakeArr = [{x:13,y:16}];
         score = 0;
-        
+        speed=5;
+        scoreBox.innerHTML = "Score: " + score;
     }
 
     if(snakeArr[0].y===food.y && snakeArr[0].x===food.x){
         foodsound.play();
         score+=1;
         scoreBox.innerHTML = "Score: " + score;
+        speed+=0.5;
+        if(score>hiscoreval){
+            hiscoreval = score
+            localStorage.setItem('hiscore',JSON.stringify(hiscoreval));
+            hiscoreBox.innerHTML = "Hiscore:" +hiscoreval;
+        }
         snakeArr.unshift({x: snakeArr[0].x+inputDir.x , y: snakeArr[0].y+inputDir.y});
         let a=2;
         let b=16;
@@ -82,31 +89,82 @@ const gameEngine = () => {
 
 }
 
+let hiscore = localStorage.getItem('hiscore')
+if(hiscore === null){
+    hiscoreval = 0;
+    localStorage.setItem('hiscore',JSON.stringify(hiscoreval));
+}
+else{
+    hiscoreval = JSON.parse(hiscore);
+    hiscoreBox.innerHTML = "Hiscore:" +hiscore;
+}
+
 window.requestAnimationFrame(main);
 window.addEventListener('keydown' , e => {
     inputDir = {x:0,y:0}
     moveSound.play();
     switch(e.key){
         case "ArrowUp" :
-            console.log("ArroeUp")
+            // console.log("ArroeUp")
+            inputDir.x = 0;
+            inputDir.y = -1;
+            break;
+        case "w" :
+            // console.log("ArroeUp")
+            inputDir.x = 0;
+            inputDir.y = -1;
+            break;
+        case "W" :
+            // console.log("ArroeUp")
             inputDir.x = 0;
             inputDir.y = -1;
             break;
 
         case "ArrowDown" :
-            console.log("ArroeDown")
+            // console.log("ArroeDown")
             inputDir.x = 0;
             inputDir.y = 1;
             break;
+        case "s" :
+            // console.log("ArroeDown")
+            inputDir.x = 0;
+            inputDir.y = 1;
+            break;
+        case "S" :
+            // console.log("ArroeDown")
+            inputDir.x = 0;
+            inputDir.y = 1;
+            break;
+        
 
         case "ArrowLeft" :
-            console.log("ArroeLeft")
+            // console.log("ArroeLeft")
+            inputDir.x = -1;
+            inputDir.y = 0;
+            break;
+        case "a" :
+            // console.log("ArroeLeft")
+            inputDir.x = -1;
+            inputDir.y = 0;
+            break;
+        case "A" :
+            // console.log("ArroeLeft")
             inputDir.x = -1;
             inputDir.y = 0;
             break;
 
         case "ArrowRight" :
-            console.log("ArroeRight")
+            // console.log("ArroeRight")
+            inputDir.x = 1;
+            inputDir.y = 0;
+            break;
+        case "d" :
+            // console.log("ArroeRight")
+            inputDir.x = 1;
+            inputDir.y = 0;
+            break;
+        case "D" :
+            // console.log("ArroeRight")
             inputDir.x = 1;
             inputDir.y = 0;
             break;
