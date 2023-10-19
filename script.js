@@ -6,7 +6,7 @@ const musicSound = new Audio();
 let lastPaintTime=0;
 let speed=5;
 let snakeArr =[
-    {x:13,y:16}
+    {x:2,y:2}
 ]
 let food = {x:6,y:7};
 let score =0;
